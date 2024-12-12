@@ -16,7 +16,7 @@ jobs:
       - name: Checkout HEAD
         uses: actions/checkout@v3  # Checkout the repository
         with:
-          ref: master
+          ref: main
 
       - name: Upstream Sync
         id: sync
