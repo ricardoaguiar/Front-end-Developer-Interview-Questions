@@ -1,0 +1,28 @@
+name: Sync with upstream
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # This runs every day at midnight UTC. Adjust the cron schedule as needed.
+  workflow_dispatch:  # Add this line to enable manual dispatch
+
+jobs:
+  sync-with-upstream:
+    runs-on: ubuntu-22.04
+    name: Sync HEAD with upstream latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout HEAD
+        uses: actions/checkout@v3  # Checkout the repository
+        with:
+          ref: master
+
+      - name: Upstream Sync
+        id: sync
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4.1
+        with:
+          target_sync_branch: main
+          upstream_sync_branch: main
+          upstream_sync_repo: h5bp/Front-end-Developer-Interview-Questions
+          target_repo_token: ${{ secrets.GITHUB_TOKEN }}
